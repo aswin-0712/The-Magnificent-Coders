@@ -1,0 +1,6 @@
+Return-Path: <billing-audit@meridian-verify.co>
+Reply-To: support@external-relay.net
+Date: 2026-11-09 18:42 UTC
+Subject: Urgent IBAN Update for Invoice #3345
+Received-SPF: fail (google.com: domain of billing-audit@meridian-verify.co does not designate 185.220.101.44 as permitted sender)
+Body: Please route all pending payments for Invoice #3345 to DE44500105170123456789 immediately. Contact +44-20-7946-0821 to confirm.
