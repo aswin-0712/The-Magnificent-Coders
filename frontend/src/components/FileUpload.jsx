@@ -270,3 +270,4 @@ export default function FileUpload({ investigations = [], selectedCaseId, onSele
     </div>
   );
 }
+

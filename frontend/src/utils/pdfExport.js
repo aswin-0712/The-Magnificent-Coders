@@ -50,7 +50,7 @@ export function downloadReportPdf(report) {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
   doc.setTextColor(23, 37, 84);
-  doc.text('EVIDENCE AI — INVESTIGATION REPORT', margin, 40);
+  doc.text('ForenSIQ — INVESTIGATION REPORT', margin, 40);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9.5);
@@ -119,7 +119,7 @@ export function downloadReportPdf(report) {
     doc.setFontSize(8);
     doc.setTextColor(100, 116, 139);
     doc.text(
-      `EVIDENCE AI • Generated for Demonstration & Review • Page ${i} of ${totalPages}`,
+      `ForenSIQ • Generated for Demonstration & Review • Page ${i} of ${totalPages}`,
       margin,
       pageHeight - 24
     );
@@ -131,7 +131,7 @@ export function downloadReportPdf(report) {
 
 export function downloadAnalysisText(analysis, investigationName, evidenceName) {
   const lines = [
-    'EVIDENCE AI — ANALYSIS EXPORT',
+    'ForenSIQ — ANALYSIS EXPORT',
     `Investigation: ${investigationName}`,
     `Evidence Source: ${evidenceName}`,
     `Exported At: ${new Date().toISOString()}`,
@@ -165,3 +165,4 @@ export function downloadAnalysisText(analysis, investigationName, evidenceName) 
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+

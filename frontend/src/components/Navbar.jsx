@@ -33,7 +33,7 @@ export default function Navbar({ onOpenMobileMenu }) {
   const handleLogout = () => {
     setProfileOpen(false);
     logout();
-    toast.success('Signed out of EVIDENCE AI');
+    toast.success('Signed out of ForenSIQ');
     navigate('/login');
   };
 
@@ -181,3 +181,4 @@ export default function Navbar({ onOpenMobileMenu }) {
     </header>
   );
 }
+

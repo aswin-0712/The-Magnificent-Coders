@@ -349,7 +349,7 @@ export const INITIAL_TIMELINE_EVENTS = [
     timestamp: '2026-11-10T10:14:00Z',
     category: 'File uploads',
     description:
-      'Investigator Aswin ingested wire confirmation scan and RFID terminal exhibit into EVIDENCE AI.',
+      'Investigator Aswin ingested wire confirmation scan and RFID terminal exhibit into ForenSIQ.',
     evidenceId: 'EV-101',
     evidenceFile: 'wire_confirmation_AGBC98745612.jpg',
     extractedSnippet: 'Ingested into CASE-2026-014 with SHA-256 reference checksum logged.',
@@ -671,3 +671,4 @@ export const INITIAL_REPORTS = [
       'Report status is Pending while additional email artifacts are collected. Demonstration dataset only.',
   },
 ];
+

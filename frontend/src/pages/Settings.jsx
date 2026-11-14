@@ -370,7 +370,7 @@ export default function Settings() {
                 value={preferences.theme}
                 onChange={(e) => {
                   updatePreferences({ theme: e.target.value });
-                  toast.success('Light Theme remains active across EVIDENCE AI.');
+                  toast.success('Light Theme remains active across ForenSIQ.');
                 }}
                 className="w-full h-10 px-3 rounded-xl bg-[#F5F6FC] border border-[#E5E7F0] text-sm text-[#172554] focus:outline-none focus:border-[#7656E8]"
               >
@@ -384,3 +384,4 @@ export default function Settings() {
     </div>
   );
 }
+

@@ -36,3 +36,4 @@ export function formatDateDisplay(isoString, dateFormat = 'YYYY-MM-DD') {
   if (dateFormat === 'MM/DD/YYYY') return `${mm}/${dd}/${yyyy} ${hh}:${min}`;
   return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
 }
+

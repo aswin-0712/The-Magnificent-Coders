@@ -28,5 +28,55 @@
     "status": "VERIFIED_INTACT",
     "prev_hash": "3fc08b6d74b610645f7f6e6451f5bef891fa7c1aec4cd033926ac106f315947a",
     "chain_signature": "e8b618341c3e63b2de804313f99599d7454e3a5e6053b406bff085c21b280826"
+  },
+  {
+    "index": 4,
+    "timestamp": "2026-11-14T12:41:20.749763+00:00",
+    "action": "EVIDENCE_INGESTED",
+    "filename": "2.txt",
+    "evidence_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "VERIFIED_INTACT",
+    "prev_hash": "e8b618341c3e63b2de804313f99599d7454e3a5e6053b406bff085c21b280826",
+    "chain_signature": "76865d79069debf976d5f7ff4af8df53a325497874c93c4065cb556982c22107"
+  },
+  {
+    "index": 5,
+    "timestamp": "2026-11-14T12:41:20.763122+00:00",
+    "action": "DUPLICATE_FLAGGED",
+    "filename": "3.txt",
+    "evidence_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "REJECTED_DUPLICATE",
+    "prev_hash": "76865d79069debf976d5f7ff4af8df53a325497874c93c4065cb556982c22107",
+    "chain_signature": "a28c863f8ced7ee94a7cd053df212d332807da6f438a88330d940fffebf5ab2b"
+  },
+  {
+    "index": 6,
+    "timestamp": "2026-11-14T13:07:00.291588+00:00",
+    "action": "EVIDENCE_INGESTED",
+    "filename": "2.txt",
+    "evidence_sha256": "39b5b2e00bb31f5c9d0cf70fb5dc05beeffa1d86539243be1d00b2d2d96911b7",
+    "status": "VERIFIED_INTACT",
+    "prev_hash": "a28c863f8ced7ee94a7cd053df212d332807da6f438a88330d940fffebf5ab2b",
+    "chain_signature": "ef273931046abad28bbc4fa21fc9f91b4dc195d18dfe7d3a34d3f7366a9ed1ab"
+  },
+  {
+    "index": 7,
+    "timestamp": "2026-11-14T13:07:00.371497+00:00",
+    "action": "EVIDENCE_INGESTED",
+    "filename": "3.txt",
+    "evidence_sha256": "f30174e3d9f6859748e006e43bd87550a7d4c5bbadf4484cbe1b99d2220771ed",
+    "status": "VERIFIED_INTACT",
+    "prev_hash": "ef273931046abad28bbc4fa21fc9f91b4dc195d18dfe7d3a34d3f7366a9ed1ab",
+    "chain_signature": "5b031b190108aad4c7c24f276357420b985354114e882ff9080799106a8cc2a5"
+  },
+  {
+    "index": 8,
+    "timestamp": "2026-11-14T13:07:30.153637+00:00",
+    "action": "DUPLICATE_FLAGGED",
+    "filename": "2.txt",
+    "evidence_sha256": "39b5b2e00bb31f5c9d0cf70fb5dc05beeffa1d86539243be1d00b2d2d96911b7",
+    "status": "REJECTED_DUPLICATE",
+    "prev_hash": "5b031b190108aad4c7c24f276357420b985354114e882ff9080799106a8cc2a5",
+    "chain_signature": "4b7e1bb0bba36b0540bbcd68f64f33421d981e8d4dc026d77cb4cd12706ccb83"
   }
 ]

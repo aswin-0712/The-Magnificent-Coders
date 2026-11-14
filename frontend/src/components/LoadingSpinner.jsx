@@ -11,3 +11,4 @@ export default function LoadingSpinner({ label = 'Loading...', size = 'md' }) {
     </div>
   );
 }
+

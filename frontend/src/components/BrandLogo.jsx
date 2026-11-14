@@ -40,7 +40,7 @@ export function BrandLogo({ compact = false }) {
       {!compact && (
         <div className="min-w-0">
           <div className="text-[15px] font-bold tracking-tight text-[#172554] leading-tight whitespace-nowrap">
-            EVIDENCE AI
+            ForenSIQ
           </div>
           <div className="text-[11px] font-medium text-[#64748B] truncate">
             Analyze • Investigate • Uncover
@@ -149,3 +149,4 @@ export function ForensicFingerprintGraphic({ className = '' }) {
     </svg>
   );
 }
+

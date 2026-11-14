@@ -113,3 +113,4 @@ export default function TimelineItem({ event, isSelected, onSelect, onViewEviden
     </div>
   );
 }
+

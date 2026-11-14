@@ -28,7 +28,7 @@ export default function Login() {
     setSubmitting(true);
     setTimeout(() => {
       signInDemo({ email, rememberMe });
-      toast.success('Signed in to EVIDENCE AI demonstration workspace.');
+      toast.success('Signed in to ForenSIQ demonstration workspace.');
       navigate(redirectPath, { replace: true });
     }, 300);
   };
@@ -238,3 +238,4 @@ export default function Login() {
     </div>
   );
 }
+
