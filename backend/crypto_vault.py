@@ -1,51 +1,68 @@
-import hashlib
-import json
 import os
-from datetime import datetime, timezone
+import json
+import hashlib
+from datetime import datetime
 
-AUDIT_FILE = "audit_log.json"
+LOG_FILE = "audit_log.json"
 
-def compute_sha256(file_bytes: bytes) -> str:
-    return hashlib.sha256(file_bytes).hexdigest()
+class CryptoVault:
+    def __init__(self):
+        self.log_file = LOG_FILE
+        # Initialize an empty cryptographic ledger if it doesn't exist
+        if not os.path.exists(self.log_file):
+            with open(self.log_file, "w") as f:
+                json.dump([], f)
 
-def append_audit_log(action: str, filename: str, file_hash: str, status: str) -> dict:
-    logs = []
-    if os.path.exists(AUDIT_FILE):
-        with open(AUDIT_FILE, "r", encoding="utf-8") as f:
+    def get_audit_logs(self):
+        """Returns the full tamper-evident audit ledger for verification."""
+        if os.path.exists(self.log_file):
             try:
-                logs = json.load(f)
+                with open(self.log_file, "r") as f:
+                    return json.load(f)
             except json.JSONDecodeError:
-                logs = []
-
-    prev_hash = logs[-1]["chain_signature"] if logs else "0" * 64
-    timestamp = datetime.now(timezone.utc).isoformat()
-    raw_block = f"{prev_hash}|{timestamp}|{action}|{filename}|{file_hash}|{status}"
-    chain_signature = hashlib.sha256(raw_block.encode("utf-8")).hexdigest()
-
-    entry = {
-        "index": len(logs) + 1,
-        "timestamp": timestamp,
-        "action": action,
-        "filename": filename,
-        "evidence_sha256": file_hash,
-        "status": status,
-        "prev_hash": prev_hash,
-        "chain_signature": chain_signature,
-    }
-    logs.append(entry)
-    with open(AUDIT_FILE, "w", encoding="utf-8") as f:
-        json.dump(logs, f, indent=2)
-    return entry
-
-def get_audit_logs() -> list:
-    if not os.path.exists(AUDIT_FILE):
+                return []
         return []
-    with open(AUDIT_FILE, "r", encoding="utf-8") as f:
-        try:
-            return json.load(f)
-        except json.JSONDecodeError:
-            return []
 
-def clear_audit_logs():
-    if os.path.exists(AUDIT_FILE):
-        os.remove(AUDIT_FILE)
+    def is_duplicate(self, file_hash: str) -> bool:
+        """Mathematically checks if a SHA-256 hash is already in the vault."""
+        logs = self.get_audit_logs()
+        for entry in logs:
+            if entry.get("file_hash") == file_hash:
+                return True
+        return False
+
+    def verify_and_log(self, filename: str, raw_bytes: bytes):
+        """
+        Computes the SHA-256 hash of the evidence, links it to the previous 
+        block's signature to maintain chain-of-custody, and logs the event.
+        """
+        file_hash = hashlib.sha256(raw_bytes).hexdigest()
+        logs = self.get_audit_logs()
+        
+        # Determine the previous chain signature (Genesis block if ledger is empty)
+        previous_signature = logs[-1]["chain_signature"] if logs else "GENESIS_00000000000000000000000000000000"
+        
+        timestamp = datetime.utcnow().isoformat() + "Z"
+        
+        # The payload that gets sealed into this block
+        payload = f"{previous_signature}:{file_hash}:{filename}:{timestamp}"
+        
+        # The cryptographic chain signature for THIS specific block
+        chain_signature = hashlib.sha256(payload.encode('utf-8')).hexdigest()
+        
+        new_entry = {
+            "timestamp": timestamp,
+            "filename": filename,
+            "file_hash": file_hash,
+            "previous_signature": previous_signature,
+            "chain_signature": chain_signature,
+            "action": "EVIDENCE_INDEXED"
+        }
+        
+        logs.append(new_entry)
+        
+        # Save the immutable ledger
+        with open(self.log_file, "w") as f:
+            json.dump(logs, f, indent=4)
+            
+        return new_entry
