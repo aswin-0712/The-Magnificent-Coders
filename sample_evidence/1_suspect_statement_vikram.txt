@@ -1,0 +1,4 @@
+INTERVIEW TRANSCRIPT - CASE-2026-014
+Date: 2026-11-09 21:18 UTC
+Investigator: Aswin | Subject: Vikram Rao (v.rao@internal-corp.example, +1-415-555-0194)
+Statement: "On 2026-11-09 at 21:18, I was completely offline and never accessed the Aurora Global Bank portal or approved Invoice #3345. I left the London office at 18:00."
