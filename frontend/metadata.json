@@ -1,0 +1,6 @@
+{
+  "name": "EVIDENCE AI",
+  "description": "AI-Powered Digital Evidence Intelligence Platform for organizing, analyzing, and visualizing digital forensics evidence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
