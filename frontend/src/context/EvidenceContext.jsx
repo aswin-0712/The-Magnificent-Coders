@@ -201,17 +201,76 @@ export function EvidenceProvider({ children }) {
   const runAnalysis = async ({ caseId, evidenceId }) => {
     const evidenceItem = evidence.find((e) => e.id === evidenceId);
     const result = await runAiAnalysisApi({ caseId, evidenceItem });
+    
     setAnalyses((prev) => ({
       ...prev,
       [evidenceId]: result.data,
     }));
 
-    if (evidenceItem) {
+    if (evidenceItem && result.data) {
       addActivity(
         'analysis',
         'AI analysis completed',
         `Analysis workflow finished for ${evidenceItem.fileName}`
       );
+
+      // DYNAMIC GRAPH INJECTION
+      const fileNodeId = `n-file-${evidenceItem.id}`;
+      const people = result.data.entities?.People || [];
+      const emails = result.data.entities?.['Email Addresses'] || [];
+
+      setGraphData((prev) => {
+        const existingIds = new Set(prev.nodes.map((n) => n.id));
+        const newNodes = [...prev.nodes];
+        const newEdges = [...prev.edges];
+
+        // 1. Add the uploaded file as a central node
+        if (!existingIds.has(fileNodeId)) {
+          newNodes.push({
+            id: fileNodeId,
+            type: 'forensicNode',
+            position: { x: 450, y: Math.max(100, (prev.nodes.length * 60) % 500) },
+            data: {
+              label: evidenceItem.fileName,
+              nodeType: evidenceItem.fileType === 'Image' ? 'Image' : 'Document',
+              relatedEvidence: [evidenceItem.fileName],
+              description: `SHA-256 Verified (${evidenceItem.sha256?.slice(0, 16)}...).`,
+            },
+          });
+          existingIds.add(fileNodeId);
+        }
+
+        // 2. Add extracted people/emails and link them to the file
+        [...people.slice(0, 3), ...emails.slice(0, 2)].forEach((entityName, idx) => {
+          const entityId = `n-ent-${entityName.replace(/\W+/g, '').toLowerCase()}`;
+          if (!existingIds.has(entityId)) {
+            newNodes.push({
+              id: entityId,
+              type: 'forensicNode',
+              position: { x: 150 + (idx * 200), y: 400 + (idx * 50) },
+              data: {
+                label: entityName,
+                nodeType: entityName.includes('@') ? 'Email' : 'Person',
+                relatedEvidence: [evidenceItem.fileName],
+                description: `Extracted by ForenSIQ AI Engine from ${evidenceItem.fileName}.`,
+              },
+            });
+            existingIds.add(entityId);
+          }
+          
+          // Link entity to the file
+          newEdges.push({
+            id: `e-${fileNodeId}-${entityId}-${Date.now()}`,
+            source: entityId,
+            target: fileNodeId,
+            label: 'extracted from artifact',
+          });
+        });
+
+        return { nodes: newNodes, edges: newEdges };
+      });
+
+      // Update Timeline
       setTimelineEvents((prev) => [
         {
           id: `TL-AN-${Date.now()}`,
@@ -221,7 +280,7 @@ export function EvidenceProvider({ children }) {
           category: 'AI analysis events',
           description: result.backendConnected
             ? 'Server-side AI evidence analysis completed.'
-            : 'Demonstration analysis workflow completed (Flask backend offline).',
+            : 'Demonstration analysis workflow completed (FastAPI offline).',
           evidenceId: evidenceItem.id,
           evidenceFile: evidenceItem.fileName,
           extractedSnippet: result.data.aiSummary?.slice(0, 140) || '',
